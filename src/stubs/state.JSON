@@ -1,0 +1,28 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "name": "Kenny"
+    },
+    {
+      "id": 2,
+      "name": "Vivian"
+    }
+  ],
+  "list": [
+    {
+      "id": 1,
+      "name": "Dish washing",
+      "description": "This include lunch box content",
+      "user": 1,
+      "lastModified": "2019-11-15"
+    },
+    {
+      "id": 2,
+      "name": "Garbage collection",
+      "description": "This only include taking garbage to the grage",
+      "user": 2,
+      "lastModified": "2019-11-15"
+    }
+  ]
+}
