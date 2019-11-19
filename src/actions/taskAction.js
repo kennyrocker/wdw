@@ -24,7 +24,7 @@ export function updateTask(taskId, task) {
 
 export function getAllTasks() {
     return {
-        type: TYPE.GET_ALL_TASKS
+        type: TYPE.GET_TASKS
     };
 }
 

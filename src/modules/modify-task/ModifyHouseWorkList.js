@@ -1,45 +1,57 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import ModifyTaskItem from './ModifyTaskItem';
+import * as TYPE from "../../constants/actionType";
 
 
 class ModifyHouseWorkList extends Component {
 
-    state = {
 
-        list: [
-            {
-                id: 1,
-                name: "Dish washing",
-                description: "This include lunch box content",
-                user: 1,
-                lastModified: "2019-11-15"
-            },
-            {
-                id: 2,
-                name: "Garbage collection",
-                description: "This only include taking garbage to the grage",
-                user: 2,
-                lastModified: "2019-11-15"
-            }
-        ]
-    };
-
-
-
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        if (this.props.initialFetchUser) {
+            this.props.getUsers();
+        }
+        if (this.props.initialFetchTaskList) {
+            this.props.getTasks();
+        }
     }
 
     render() {
         return (
-            this.state.list.map((item) => {
-                return (
-                    <ModifyTaskItem props={item} key={item.id}/>
-                )
-            })
+
+            <div className="tasks-module">
+                {
+                    this.props.task && this.props.task.length ?
+
+                        this.props.task.map((item) => {
+                            return (
+                                <ModifyTaskItem props={item} key={item.id}/>
+                            )
+                        })
+
+                        : null
+                }
+            </div>
         );
     };
 }
 
-export default ModifyHouseWorkList;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+        task: state.task,
+        initialFetchUser: state.ui.initialFetchUser,
+        initialFetchTaskList: state.ui.initialFetchTaskList
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getTasks: () => { dispatch({ type: TYPE.GET_TASKS }) },
+        getUsers: () => { dispatch({ type: TYPE.GET_USERS }) }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModifyHouseWorkList);

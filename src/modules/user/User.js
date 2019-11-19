@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import * as TYPE from '../../constants/actionType';
 
 import UserItem from './UserItem';
@@ -6,22 +8,27 @@ import AddUser from './AddUser';
 
 import randomId from '../../utils/utls'
 
-import { connect } from 'react-redux';
+
 
 
 class User extends Component {
 
     constructor(props) {
         super(props);
+        if (this.props.initialFetchUser) {
+            this.props.getUsers();
+        }
+
     }
 
     render() {
         return (
             <div className="user-module">
-                {   this.props.user.length ?
+                {  this.props.user && this.props.user.length ?
+
                         this.props.user.map((item) => {
                             return (
-                            <UserItem props={item} key={item.id}/>
+                                <UserItem props={item} key={item.id}/>
                             )
                         })
 
@@ -44,13 +51,15 @@ class User extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        initialFetchUser: state.ui.initialFetchUser
     };
 };
 
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getUsers: () => { dispatch({ type: TYPE.GET_USERS }) },
         addUser: (user) => { dispatch({ type: TYPE.ADD_USER, user: user}) }
     };
 };
