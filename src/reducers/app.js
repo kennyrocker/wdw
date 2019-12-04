@@ -23,11 +23,13 @@ const initialState = {
     }
 };
 
-
-
-
 function appReducer(state = initialState, action) {
     switch(action.type) {
+
+        /*---------------------------------*/
+        /*/////////////  USER  /////////// */
+        /*---------------------------------*/
+
         // ADD USER
         case TYPE.ADD_USER:
             return {
@@ -36,8 +38,7 @@ function appReducer(state = initialState, action) {
                     ...state.ui,
                     addUserPending: true
                 }
-            }
-            break;
+            };
 
         case TYPE.ADD_USER_SUCCESS:
             return {
@@ -52,7 +53,7 @@ function appReducer(state = initialState, action) {
                     addUserError: null
                 }
             }
-            break;
+
 
         case TYPE.ADD_USER_ERROR:
             return {
@@ -65,7 +66,42 @@ function appReducer(state = initialState, action) {
                     }
                 }
             }
-            break;
+
+
+        // UPDATE USER
+        case TYPE.UPDATE_USER:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    updateUserPending: true
+                }
+            };
+
+        case TYPE.UPDATE_USER_SUCCESS:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    updateUserPending: false
+                },
+                user: [
+                    ...state.user.map(obj => (obj.id === action.user.id) ? action.user : obj)
+                ]
+            };
+
+        case TYPE.UPDATE_USER_ERROR:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    updateUserPending: false,
+                    updateUserError: {
+                        message: 'Update User Error'
+                    }
+                }
+            };
+
 
         // GET USERS
         case TYPE.GET_USERS:
@@ -75,8 +111,7 @@ function appReducer(state = initialState, action) {
                     ...state.ui,
                     fetchUserPending: true
                 }
-            }
-            break;
+            };
 
         case TYPE.GET_USERS_SUCCESS:
             return {
@@ -90,8 +125,7 @@ function appReducer(state = initialState, action) {
                     fetchUserPending: false,
                     fetchUserError: null
                 }
-            }
-            break;
+            };
 
         case TYPE.GET_USERS_ERROR:
             return {
@@ -103,8 +137,116 @@ function appReducer(state = initialState, action) {
                         message: 'Fetch User Error'
                     }
                 }
-            }
-            break;
+            };
+
+
+
+        /*---------------------------------*/
+        /*/////////////  TASK  /////////// */
+        /*---------------------------------*/
+
+        // ADD TASKS
+        case TYPE.ADD_TASK:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    addTaskPending: true
+                }
+            };
+
+        case TYPE.ADD_TASK_SUCCESS:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    addTaskPending: false,
+                    addTaskError: null
+                },
+                task: [
+                    ...state.task,
+                    action.task
+                ]
+            };
+
+        case TYPE.ADD_TASK_ERROR:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    addTaskPending: false,
+                    addTaskError: {
+                        message: 'Add Task Error'
+                    }
+                }
+            };
+
+
+        // DELETE TASK
+        case TYPE.DELETE_TASK:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    updateTaskPending: true
+                }
+            };
+
+        case TYPE.DELETE_TASK_SUCCESS:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    updateTaskPending: false
+                },
+                task: state.task.filter((i) => i.id !== action.taskId)
+            };
+
+        case TYPE.DELETE_TASK_ERROR:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    updateTaskPending: false,
+                    updateTaskError: {
+                        message: 'Delete Task Error'
+                    }
+                }
+            };
+
+        // UPDATE_TASK
+        case TYPE.UPDATE_TASK:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    updateTaskPending: true
+                }
+            };
+
+        case TYPE.UPDATE_TASK_SUCCESS:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    updateTaskPending: false
+                },
+                task: [
+                    ...state.task.map(obj => (obj.id === action.task.id) ? action.task : obj)
+                ]
+            };
+
+        case TYPE.UPDATE_TASK_ERROR:
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    updateTaskPending: false,
+                    updateTaskError: {
+                        message: 'Error Update Task Response User'
+                    }
+                }
+            };
 
 
         // GET TASKS
@@ -115,8 +257,7 @@ function appReducer(state = initialState, action) {
                     ...state.ui,
                     fetchTaskListPending: true
                 }
-            }
-            break;
+            };
 
         case TYPE.GET_TASKS_SUCCESS:
             return {
@@ -130,8 +271,7 @@ function appReducer(state = initialState, action) {
                     fetchTaskListPending: false,
                     fetchUserError: null
                 }
-            }
-            break;
+            };
 
         case TYPE.GET_TASKS_ERROR:
             return {
@@ -143,13 +283,11 @@ function appReducer(state = initialState, action) {
                         message: 'Fetch Task Error'
                     }
                 }
-            }
-            break;
+            };
 
 
-        default:
-            return state;
-        break;
+        default:return state;
+
     }
 }
 

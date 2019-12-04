@@ -5,10 +5,7 @@ import * as TYPE from '../../constants/actionType';
 
 import UserItem from './UserItem';
 import AddUser from './AddUser';
-
-import randomId from '../../utils/utls'
-
-
+import Util from "../../utils/utls";
 
 
 class User extends Component {
@@ -18,7 +15,7 @@ class User extends Component {
         if (this.props.initialFetchUser) {
             this.props.getUsers();
         }
-
+        this.updateUser = Util.debounce(this.updateUser, 1000, false);
     }
 
     render() {
@@ -28,7 +25,7 @@ class User extends Component {
 
                         this.props.user.map((item) => {
                             return (
-                                <UserItem props={item} key={item.id}/>
+                                <UserItem data={item} key={item.id} updateUser={this.updateUser}/>
                             )
                         })
 
@@ -42,8 +39,12 @@ class User extends Component {
 
     // events
     addUser = (user) => {
-        user.id = randomId(10);
         this.props.addUser(user);
+    }
+
+    updateUser = (user, value) => {
+        user.name = value;
+        this.props.updateUser(user);
     }
 
 }
@@ -60,7 +61,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getUsers: () => { dispatch({ type: TYPE.GET_USERS }) },
-        addUser: (user) => { dispatch({ type: TYPE.ADD_USER, user: user}) }
+        addUser: (user) => { dispatch({ type: TYPE.ADD_USER,  user}) },
+        updateUser: (user) => { dispatch({ type: TYPE.UPDATE_USER, user }) }
     };
 };
 

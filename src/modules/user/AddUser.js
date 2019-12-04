@@ -20,13 +20,14 @@ class AddUser extends Component {
 
     resetForm = () => {
         this.setState({ name: '' });
+        this.refs.addUserInput.value = '';
     }
 
     render() {
         return (
             <div className="add-user">
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" onChange={this.handleUpdateName} value={this.state.name}/>
+                    <input ref="addUserInput" type="text" onChange={this.handleUpdateName}/>
                     <button type="submit">Add User</button>
                 </form>
             </div>

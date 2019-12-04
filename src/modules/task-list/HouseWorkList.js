@@ -27,7 +27,10 @@ class HouseWorkList extends Component {
 
                         this.props.task.map((item) => {
                             return (
-                                <TaskItem props={item} key={item.id}/>
+                                <TaskItem item={item}
+                                          user={this.props.user}
+                                          key={item.id}
+                                          updateResponseUser={this.updateResponseUser}/>
                             )
                         })
 
@@ -35,6 +38,13 @@ class HouseWorkList extends Component {
                 }
             </div>
         );
+    };
+
+    // events
+    updateResponseUser = ({task, userId}) => {
+      task.user = userId;
+      task.lastModified = new Date().getTime();
+      this.props.updateTask(task);
     };
 }
 
@@ -50,7 +60,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getTasks: () => { dispatch({ type: TYPE.GET_TASKS }) },
-        getUsers: () => { dispatch({ type: TYPE.GET_USERS }) }
+        getUsers: () => { dispatch({ type: TYPE.GET_USERS }) },
+        updateTask: (task) => { dispatch({ type: TYPE.UPDATE_TASK, task }) }
     };
 };
 
