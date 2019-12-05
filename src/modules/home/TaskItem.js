@@ -18,7 +18,7 @@ const TaskItem = (props) => {
                         onChange={(e) =>
                             props.updateResponseUser( { task: item, userId: e.target.value} )}>
                     { !item.user &&
-                    <option value={-1} key={-1}>Never Assign</option>
+                    <option value={-1} key={-1}>Not Yet Assign</option>
                     }
                     { user && user.length &&
                         user.map((o) => {

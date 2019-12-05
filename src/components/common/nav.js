@@ -6,7 +6,6 @@ import { Path } from "../../constants/paths";
 
 class Nav extends Component {
 
-
     render(){
         return (
             <div>
@@ -18,7 +17,7 @@ class Nav extends Component {
                         </li>
                         <li>
                             <Link to={Path.Task} className={this.props.currentPath === Path.Task ? 'active' : ''}>
-                                Edit Tasks</Link>
+                                Task</Link>
                         </li>
                         <li>
                             <Link to={Path.User} className={this.props.currentPath === Path.User ? 'active' : ''}>

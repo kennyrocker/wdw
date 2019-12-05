@@ -8,7 +8,7 @@ import Util from "../../utils/utls";
 import {Path} from "../../constants/paths";
 
 
-class ModifyHouseWorkList extends Component {
+class Task extends Component {
 
     constructor(props) {
         super(props);
@@ -90,4 +90,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModifyHouseWorkList);
+export default connect(mapStateToProps, mapDispatchToProps)(Task);

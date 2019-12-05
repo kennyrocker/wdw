@@ -7,7 +7,7 @@ import { Path } from "../../constants/paths";
 
 
 
-class HouseWorkList extends Component {
+class Home extends Component {
 
 
     constructor(props) {
@@ -71,4 +71,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HouseWorkList);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

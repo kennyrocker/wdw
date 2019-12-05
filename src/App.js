@@ -3,14 +3,16 @@ import { Router } from '@reach/router';
 
 // components
 import Loading from './components/common/loading';
+import BackDrop from "./components/common/backDrop";
 import Nav from './components/common/nav';
 import { Path } from "./constants/paths";
 
 
+
 // Lazy Load Module
-const HouseWorkList = lazy(() => import('./modules/task-list/HouseWorkList'));
+const HouseWorkList = lazy(() => import('./modules/home/Home'));
 const User = lazy(() => import('./modules/user/User'));
-const ModifyHouseWorkList = lazy(() => import('./modules/modify-task/ModifyHouseWorkList'));
+const ModifyHouseWorkList = lazy(() => import('./modules/task/Task'));
 
 
 class App extends Component {
@@ -26,6 +28,7 @@ class App extends Component {
                       <ModifyHouseWorkList path={Path.Task}/>
                   </Router>
               </Suspense>
+              <BackDrop/>
           </div>
       );
   }
