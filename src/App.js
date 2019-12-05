@@ -4,6 +4,8 @@ import { Router } from '@reach/router';
 // components
 import Loading from './components/common/loading';
 import Nav from './components/common/nav';
+import { Path } from "./constants/paths";
+
 
 // Lazy Load Module
 const HouseWorkList = lazy(() => import('./modules/task-list/HouseWorkList'));
@@ -19,9 +21,9 @@ class App extends Component {
               <Nav/>
               <Suspense fallback={<Loading/>}>
                   <Router>
-                      <HouseWorkList path="/"/>
-                      <User path="user"/>
-                      <ModifyHouseWorkList path="modify-list"/>
+                      <HouseWorkList path={Path.Home}/>
+                      <User path={Path.User}/>
+                      <ModifyHouseWorkList path={Path.Task}/>
                   </Router>
               </Suspense>
           </div>

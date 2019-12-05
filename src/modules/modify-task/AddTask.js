@@ -18,6 +18,7 @@ class AddTask extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        if (this.state.name === '' || this.state.description === '') return;
         this.props.addTask(this.state);
         // reset state if update successful
         this.resetForm();
@@ -41,9 +42,9 @@ class AddTask extends Component {
         return (
             <div className="add-task">
                 <form onSubmit={this.handleSubmit}>
-                    <input ref="addTaskName" type="text"
+                    <input ref="addTaskName" type="text" className="task-item-name"
                            onChange={() => this.handleUpdateField(this.refs.addTaskName.value, 'name')}/>
-                    <input ref="addTaskDesc" type="text"
+                    <input ref="addTaskDesc" type="text" className="task-item-description"
                            onChange={() => this.handleUpdateField(this.refs.addTaskDesc.value, 'description')}/>
                     <button type="submit">Add Task</button>
                 </form>

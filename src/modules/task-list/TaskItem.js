@@ -12,21 +12,28 @@ const TaskItem = (props) => {
     const task = (
         <div className="task-item">
             <div className="task-item-name">{item.name}</div>
-            <div className="task-item-description">{item.description}</div>
-            <select className="task-item-response-user"
-                    defaultValue={item.user}
-                    onChange={(e) =>
-                        props.updateResponseUser( { task: item, userId: e.target.value} )}>
+            <div className="task-item-response-user">
+                <select className=" select-css"
+                        defaultValue={item.user ? item.user : -1}
+                        onChange={(e) =>
+                            props.updateResponseUser( { task: item, userId: e.target.value} )}>
+                    { !item.user &&
+                    <option value={-1} key={-1}>Never Assign</option>
+                    }
+                    { user && user.length &&
+                        user.map((o) => {
+                                return ( <option value={o.id} key={o.id}>{o.name}</option> )
+                            })
+                        })
+                    }
+                </select>
+            </div>
 
-                { user && user.length &&
-                    user.map((o) => {
-                        return (
-                            <option value={o.id} key={o.id}>{o.name}</option>
-                        )
-                    })
-                }
-            </select>
-            <div className="task-item-last-update">{Util.formatTime(item.lastModified)}</div>
+            <div className="task-item-description">{item.description}</div>
+            <div className="task-item-last-update">{
+                item.lastModified ? Util.formatTime(item.lastModified) :
+                    <span className="new-task">Brand New Task</span>
+            }</div>
         </div>
     );
     return task;

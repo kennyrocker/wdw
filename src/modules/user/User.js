@@ -6,6 +6,7 @@ import * as TYPE from '../../constants/actionType';
 import UserItem from './UserItem';
 import AddUser from './AddUser';
 import Util from "../../utils/utls";
+import { Path } from "../../constants/paths";
 
 
 class User extends Component {
@@ -16,6 +17,10 @@ class User extends Component {
             this.props.getUsers();
         }
         this.updateUser = Util.debounce(this.updateUser, 1000, false);
+    }
+
+    componentDidMount() {
+        this.props.pathLoaded(Path.User);
     }
 
     render() {
@@ -62,7 +67,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getUsers: () => { dispatch({ type: TYPE.GET_USERS }) },
         addUser: (user) => { dispatch({ type: TYPE.ADD_USER,  user}) },
-        updateUser: (user) => { dispatch({ type: TYPE.UPDATE_USER, user }) }
+        updateUser: (user) => { dispatch({ type: TYPE.UPDATE_USER, user }) },
+        pathLoaded: (path) => { dispatch({ type: TYPE.LOAD_PATH, path }) }
     };
 };
 

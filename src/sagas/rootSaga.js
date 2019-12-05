@@ -5,9 +5,9 @@ import Util from '../utils/utls';
 
 // Workers
 
-/*
-* users
-* */
+/**
+  * users
+  */
 export function* addUser(action) {
     try {
         // const res = yield call(service api, url);
@@ -51,9 +51,9 @@ export function* updateUser(action) {
     }
 }
 
-/*
-* tasks
-* */
+/**
+ * tasks
+ */
 export function* addTask(action) {
     try {
         // const res = yield call(service api, url);
@@ -118,9 +118,24 @@ export function* getTasks() {
     }
 }
 
+/**
+ * path
+ */
+export function* pathLoaded(action) {
+    try {
+        const path = action.path;
+        yield put({ type: types.LOAD_PATH_SUCCESS, path });
+    } catch (e) {
+        console.log(e);
+        yield put();
+    }
+}
+
 
 // Watchers
 export function* watchers() {
+
+    yield takeLatest(types.LOAD_PATH, pathLoaded);
 
     yield takeLatest(types.ADD_USER, addUser);
     yield takeLatest(types.GET_USERS, getUsers);

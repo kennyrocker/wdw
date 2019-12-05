@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import TaskItem from './TaskItem';
 import * as TYPE from "../../constants/actionType";
+import { Path } from "../../constants/paths";
 
 
 
@@ -19,6 +20,10 @@ class HouseWorkList extends Component {
         }
     }
 
+    componentDidMount() {
+        this.props.pathLoaded(Path.Home);
+    }
+
     render() {
         return (
             <div className="tasks-module">
@@ -33,8 +38,7 @@ class HouseWorkList extends Component {
                                           updateResponseUser={this.updateResponseUser}/>
                             )
                         })
-
-                        : <div>There is no tasks, Go to Edit Tasks</div>
+                        : <div className="hint-text">There is no tasks, Go to Edit Tasks</div>
                 }
             </div>
         );
@@ -42,6 +46,7 @@ class HouseWorkList extends Component {
 
     // events
     updateResponseUser = ({task, userId}) => {
+      if (userId === -1) return;
       task.user = userId;
       task.lastModified = new Date().getTime();
       this.props.updateTask(task);
@@ -61,7 +66,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getTasks: () => { dispatch({ type: TYPE.GET_TASKS }) },
         getUsers: () => { dispatch({ type: TYPE.GET_USERS }) },
-        updateTask: (task) => { dispatch({ type: TYPE.UPDATE_TASK, task }) }
+        updateTask: (task) => { dispatch({ type: TYPE.UPDATE_TASK, task }) },
+        pathLoaded: (path) => { dispatch({ type: TYPE.LOAD_PATH, path }) }
     };
 };
 

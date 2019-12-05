@@ -32,3 +32,7 @@ export const DELETE_USER_ERROR = 'DELETE_USER_ERROR';
 export const ADD_USER = 'ADD_USER';
 export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
 export const ADD_USER_ERROR = 'ADD_USER_ERROR';
+
+// Path
+export const LOAD_PATH = 'LOAD_PATH';
+export const LOAD_PATH_SUCCESS = 'LOAD_PATH_SUCCESS';

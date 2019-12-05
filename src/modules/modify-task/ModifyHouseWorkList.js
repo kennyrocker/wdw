@@ -5,6 +5,7 @@ import ModifyTaskItem from './ModifyTaskItem';
 import * as TYPE from "../../constants/actionType";
 import AddTask from "./AddTask";
 import Util from "../../utils/utls";
+import {Path} from "../../constants/paths";
 
 
 class ModifyHouseWorkList extends Component {
@@ -20,10 +21,14 @@ class ModifyHouseWorkList extends Component {
         this.updateTask = Util.debounce(this.updateTask, 1000, false);
     }
 
+    componentDidMount() {
+        this.props.pathLoaded(Path.Task);
+    }
+
     render() {
         return (
 
-            <div className="tasks-module">
+            <div className="modify-tasks-module">
                 <div className="task-list">
                 {
                     this.props.task && this.props.task.length ?
@@ -80,7 +85,8 @@ const mapDispatchToProps = (dispatch) => {
         getUsers: () => { dispatch({ type: TYPE.GET_USERS }) },
         addTask: (task) => { dispatch({ type: TYPE.ADD_TASK, task }) },
         deleteTask: (taskId) => { dispatch({ type: TYPE.DELETE_TASK, taskId }) },
-        updateTask: (task) => { dispatch({ type: TYPE.UPDATE_TASK, task}) }
+        updateTask: (task) => { dispatch({ type: TYPE.UPDATE_TASK, task}) },
+        pathLoaded: (path) => { dispatch({ type: TYPE.LOAD_PATH, path }) }
     };
 };
 

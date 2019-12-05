@@ -20,11 +20,22 @@ const initialState = {
         fetchTaskListError: null,
         updateTaskPending: false,
         updateTaskError: null
-    }
+    },
+    currentPath: '/'
 };
 
 function appReducer(state = initialState, action) {
     switch(action.type) {
+
+        /*---------------------------------*/
+        /*/////////////  PATH  /////////// */
+        /*---------------------------------*/
+        case TYPE.LOAD_PATH_SUCCESS:
+            return {
+                ...state,
+                currentPath: action.path
+            }
+
 
         /*---------------------------------*/
         /*/////////////  USER  /////////// */

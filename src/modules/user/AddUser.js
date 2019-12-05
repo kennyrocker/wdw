@@ -13,6 +13,7 @@ class AddUser extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        if (this.state.name === '') return;
         this.props.addUser(this.state);
         // reset state if update successful
         this.resetForm();
